@@ -1,4 +1,4 @@
-//import axios from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 
 const Register: React.FC = () => {
@@ -8,6 +8,15 @@ const Register: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Реализуйте логику регистрации
+        try {
+            const response = await axios.post('http://localhost:8181/api/register', {
+                username,
+                password
+            });
+            console.log(response.data); // Обработка ответа от сервера
+        } catch (error) {
+            console.error(error); // Обработка ошибок запроса
+        }        
     };
 
     return (
