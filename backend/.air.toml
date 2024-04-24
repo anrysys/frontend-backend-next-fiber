@@ -1,4 +1,6 @@
 root = "."
+# root = "~/projects/a1/backend/cmd/server"
+# root = "./cmd/server"
 testdata_dir = "testdata"
 tmp_dir = "tmp"
 
