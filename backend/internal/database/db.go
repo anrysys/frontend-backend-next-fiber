@@ -30,12 +30,13 @@ func GetDatabase() *gorm.DB {
 
 		// Формирование строки подключения
 		// Интерполяция строк, заменяя заглушки настоящими значениями переменных окружения
-		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=%s",
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
 			os.Getenv("HOST"),
 			os.Getenv("POSTGRES_USER"),
 			os.Getenv("POSTGRES_PASSWORD"),
 			os.Getenv("POSTGRES_DB"),
 			os.Getenv("POSTGRES_PORT"),
+			os.Getenv("POSTGRES_SSL_MODE"),
 			os.Getenv("TZ"))
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 		if err != nil {
