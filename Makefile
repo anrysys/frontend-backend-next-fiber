@@ -37,13 +37,13 @@ shell.db:
 	docker compose -f ${DOCKER_COMPOSE_FILE} exec postgres psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
 
 lang.start:
-	cd resources/langs/ ; goi18n merge *.toml
+	cd backend/resources/langs/ ; goi18n merge *.toml
 
 lang.merge:
-	cd resources/langs/ ; goi18n merge translate.*.toml active.*.toml ; cat active.uk.toml > uk.toml ; cat active.ru.toml > ru.toml
+	cd backend/resources/langs/ ; goi18n merge translate.*.toml active.*.toml ; cat active.uk.toml > uk.toml ; cat active.ru.toml > ru.toml
 
 lang.del:
-	find ./ -type f \( -iname translate.\* -o -iname active.\* \) -delete -print
+	find ./backend/ -type f \( -iname translate.\* -o -iname active.\* \) -delete -print
 	
 # make docker.build.start ver=1.005
 docker.build.start:

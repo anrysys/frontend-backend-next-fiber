@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 	// Предполагаем, что у вас есть пакет auth для бизнес-логики
-	"backend/internal/auth"
+	"backend/auth"
 )
 
 // RegisterRequest структура для данных запроса регистрации

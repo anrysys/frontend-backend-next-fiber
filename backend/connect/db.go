@@ -1,7 +1,7 @@
-package database
+package connect
 
 import (
-	"backend/internal/models"
+	"backend/models"
 	"fmt"
 	"os"
 	"sync"
@@ -17,12 +17,6 @@ var (
 
 // GetDatabase функция для инициализации подключения к базе данных
 func GetDatabase() *gorm.DB {
-
-	var message string = "Привет мир!"
-
-	fmt.Sprintln(message)
-
-	// fmt.Sprintln(os.Getenv("POSTGRES_USER"))
 
 	once.Do(func() { // Удостовериться, что функция выполнится только один раз.
 
