@@ -50,17 +50,17 @@ lang.del:
 	
 # make docker.build.start ver=1.005
 docker.build.start:
-	go mod tidy ; docker login ; docker build --no-cache -t api-hackstay:$(ver) -f Dockerfile.production . ; docker tag api-hackstay:$(ver) anrysys/api-hackstay:$(ver) ; docker push anrysys/api-hackstay:$(ver)
+	go mod tidy ; docker login ; docker build --no-cache -t api-main:$(ver) -f Dockerfile.production . ; docker tag api-main:$(ver) anrysys/api-main:$(ver) ; docker push anrysys/api-main:$(ver)
 #	echo $(ver); echo $(ver); echo $(ver);
 # seed:
 # 	PGPASSWORD=$(POSTGRES_PASSWORD) psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} -U$(POSTGRES_USER) -d $(POSTGRES_DB) -a -f $(SEEDS_FOLDER)/001_seed_user_table.sql
 # 	PGPASSWORD=$(POSTGRES_PASSWORD) psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} -U$(POSTGRES_USER) -d $(POSTGRES_DB) -a -f $(SEEDS_FOLDER)/002_seed_book_table.sql
 
-# dev: 
-# 	docker-compose up -d
+dev: 
+	docker-compose up -d
 
-# dev-down:
-# 	docker-compose down
+dev-down:
+	docker-compose down
 
 # start-server:
 # 	air

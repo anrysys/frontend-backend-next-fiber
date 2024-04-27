@@ -48,7 +48,7 @@ other = "Вы успешно вышли из системы!"
 
 [MessageOtpCode]
 hash = "sha1-e236da367875e381e9d352b183f1833b0a1408d0"
-other = "Привет, <b>{{.Customer}}</b>!<br />Код: <b>{{.OtpCode}}</b>!<br />Скопируйте его и вставьте в поле для проверки.<br />Никому не показывайте этот код!<hr><small><i>С уважением, команда HackStay!</small></i>"
+other = "Привет, <b>{{.Customer}}</b>!<br />Код: <b>{{.OtpCode}}</b>!<br />Скопируйте его и вставьте в поле для проверки.<br />Никому не показывайте этот код!<hr><small><i>С уважением, команда my-domain!</small></i>"
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"

@@ -26,7 +26,7 @@ func Setup(micro *fiber.App) {
 	// micro.Get("/users/me", middleware.Auth, controllers.GetMe)
 	// micro.Patch("/users/updateme", middleware.Auth, controllers.UpdateMe)
 
-	// // https://hackstay.com/api/v1/resources/crypto
+	// // https://my-domain.com/api/v1/resources/crypto
 	// micro.Get("resources/crypto", func(c *fiber.Ctx) error {
 	// 	// Serve the file using SendFile function
 	// 	err := filesystem.SendFile(c, http.Dir("./resources/crypto"), "crypto.json")
