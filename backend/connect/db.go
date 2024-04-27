@@ -1,7 +1,6 @@
 package connect
 
 import (
-	"backend/models"
 	"fmt"
 	"os"
 	"sync"
@@ -37,11 +36,11 @@ func GetDatabase() *gorm.DB {
 			panic("Failed to connect to database!")
 		}
 
-		// Автомиграция для модели `User`
-		err = db.AutoMigrate(&models.User{})
-		if err != nil {
-			panic("failed to auto migrate database")
-		}
+		// // Автомиграция для модели `User`
+		// err = db.AutoMigrate(&models.User{})
+		// if err != nil {
+		// 	panic("failed to auto migrate database")
+		// }
 	})
 
 	return db

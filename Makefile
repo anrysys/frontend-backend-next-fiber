@@ -7,8 +7,8 @@ include .env
 
 # APP_NAME = apiserver
 # BUILD_DIR = $(PWD)/build
-MIGRATIONS_FOLDER = ./platform/migrations
-SEEDS_FOLDER = ./platform/seeds
+MIGRATIONS_FOLDER = ./backend/platform/migrations
+SEEDS_FOLDER = ./backend/platform/seeds
 name = 1
 
 
@@ -20,8 +20,11 @@ migrate.create:
 
 ## Run migrations UP
 migrate.up:
-	docker compose -f $(DOCKER_COMPOSE_FILE) --profile tools run --rm migrate up
-# migrate -path $(MIGRATIONS_FOLDER) -database ${DATABASE_URL} up
+# For local
+	migrate -path $(MIGRATIONS_FOLDER) -database ${DATABASE_URL} up
+# for server and docker-compose.yml
+# docker compose -f $(DOCKER_COMPOSE_FILE) --profile tools run --rm migrate up
+
 
 ## Run migrations DOWN (ROLLBACK)
 migrate.down:

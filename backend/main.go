@@ -3,7 +3,6 @@ package main
 import (
 	connect "backend/connect"
 	"backend/handlers"
-	"backend/routes"
 	"fmt"
 	"log"
 	"os"
@@ -102,7 +101,7 @@ func main() {
 	connect.GetDatabase()
 
 	// Инициализируем маршруты
-	routes.Setup(micro)
+	// routes.Setup(micro)
 
 	log.Fatal(app.Listen(os.Getenv("SERVER_PORT")))
 

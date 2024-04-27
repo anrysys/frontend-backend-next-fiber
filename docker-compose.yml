@@ -23,6 +23,25 @@ services:
       retries: 3
       #start_period: 30s
     restart: always
-
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_db:/data
+    restart: always
+  # migrate:
+  #   image: migrate/migrate:v4.17.1-amd64
+  #   profiles: ["tools"]
+  #   volumes:
+  #     - ./backend/platform/migrations:/migrations
+  #   entrypoint: ["migrate", "-path", "/migrations", "-database", "${DATABASE_URL}"]
+  #   command: ["up"]
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   restart: on-failure
 volumes:
   postgres_data:
+  redis_db:
