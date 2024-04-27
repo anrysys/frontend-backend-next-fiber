@@ -1,5 +1,5 @@
 DROP TYPE IF EXISTS _users_user_role_enum;
-CREATE TYPE _users_user_role_enum AS ENUM ('admin', 'user', 'moder');
+CREATE TYPE _users_user_role_enum AS ENUM ('admin', 'buyer', 'seller');
 DROP TYPE IF EXISTS _users_user_status_enum;
 CREATE TYPE _users_user_status_enum AS ENUM ('pending', 'active', 'suspended', 'blocked', 'rejected', 'deleted');
 -- Create users table
@@ -15,7 +15,7 @@ CREATE TABLE users (
     password VARCHAR (100) NOT NULL,    
     otp_code CHAR (5),    
     user_status _users_user_status_enum NOT NULL DEFAULT 'pending'::_users_user_status_enum,
-    user_role _users_user_role_enum NOT NULL DEFAULT 'user'::_users_user_role_enum,
+    user_role _users_user_role_enum NOT NULL DEFAULT 'buyer'::_users_user_role_enum,
     photo VARCHAR (100) NOT NULL DEFAULT 'default.png', 
     activated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,    
     verified_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
@@ -35,14 +35,14 @@ CREATE TABLE users (
         )),
 	CONSTRAINT users_user_role_check CHECK ((user_role = ANY (
         ARRAY['admin'::_users_user_role_enum, 
-            'user'::_users_user_role_enum, 
-            'moder'::_users_user_role_enum])
+            'buyer'::_users_user_role_enum, 
+            'seller'::_users_user_role_enum])
         ))        
 );
 
 COMMENT ON TABLE users IS 'Users table';
-COMMENT ON COLUMN users.otp_code IS 'Last input otp code by user';
-COMMENT ON COLUMN users.activated_at IS 'Date when the user activated the account';
+COMMENT ON COLUMN users.otp_code IS 'Last input otp code by buyer';
+COMMENT ON COLUMN users.activated_at IS 'Date when the buyer activated the account';
 COMMENT ON COLUMN users.lang IS 'Two letter country code. See standart https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes , https://www.loc.gov/standards/iso639-2/';
 
 CREATE INDEX users_user_status_idx ON users (user_status);

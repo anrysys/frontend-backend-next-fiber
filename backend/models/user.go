@@ -36,9 +36,9 @@ const (
 type UserRoles string
 
 const (
-	UserRoleAdmin UserRoles = "admin"
-	UserRoleUser  UserRoles = "user"
-	UserRoleModer UserRoles = "moder"
+	UserRoleAdmin  UserRoles = "admin"
+	UserRoleBuyer  UserRoles = "buyer"
+	UserRoleSeller UserRoles = "seller"
 )
 
 // type:int64;
@@ -55,7 +55,7 @@ type User struct {
 	OtpCode     string       `gorm:"type:char(5)"`
 	Lang        string       `gorm:"type:varchar(2)"`
 	UserStatus  UserStatuses `gorm:"not null;default:pending"`
-	UserRole    UserRoles    `gorm:"not null;default:user"`
+	UserRole    UserRoles    `gorm:"not null;default:buyer"`
 	Photo       string       `gorm:"type:varchar(100)'"`
 	ActivatedAt sql.NullTime `gorm:""`
 	VerifiedAt  sql.NullTime `gorm:""`
