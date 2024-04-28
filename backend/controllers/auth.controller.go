@@ -5,17 +5,17 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
-	"os"
 	"strconv"
 	"strings"
 	"time"
 
-	"backend/auth"
 	"backend/connect"
+	"backend/global"
+	"backend/middleware"
 
 	"backend/handlers"
-	"backend/handlers/messenger"
 	"backend/models"
+	"backend/utils/messenger"
 
 	"github.com/gofiber/contrib/fiberi18n"
 	"github.com/gofiber/fiber/v2"
@@ -331,34 +331,28 @@ func Login(c *fiber.Ctx) error {
 	// Create token
 	return CreateTokenForUser(c, user)
 }
+
 func CreateTokenForUser(c *fiber.Ctx, user models.User) error {
 
-	accessTokenExpiresIn, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_EXPIRED_IN"))
-	if err != nil {
-		return err
-	}
-
-	accessTokenDetails, err := auth.CreateToken(
+	accessTokenDetails, err := middleware.CreateToken(
 		*user.ID,
 		string(*user.Email),
 		string(user.ShortName),
 		string(user.UserStatus),
 		string(user.UserRole),
-		time.Duration(accessTokenExpiresIn)*time.Second,
-		os.Getenv("ACCESS_TOKEN_PRIVATE_KEY"))
-
+		global.Conf.AccessTokenExpiresIn,
+		global.Conf.AccessTokenPrivateKey)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
-
-	refreshTokenDetails, err := auth.CreateToken(
+	refreshTokenDetails, err := middleware.CreateToken(
 		*user.ID,
 		string(*user.Email),
 		string(user.ShortName),
 		string(user.UserStatus),
 		string(user.UserRole),
-		time.Duration(accessTokenExpiresIn)*time.Second,
-		os.Getenv("ACCESS_TOKEN_PRIVATE_KEY"))
+		global.Conf.RefreshTokenExpiresIn,
+		global.Conf.RefreshTokenPrivateKey)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
@@ -376,51 +370,37 @@ func CreateTokenForUser(c *fiber.Ctx, user models.User) error {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"status": "fail", "errors": errRefresh.Error()})
 	}
 
-	accessTokenMaxAge, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_MAXAGE"))
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
-	}
-
-	refreshTokenMaxAge, err := strconv.Atoi(os.Getenv("REFRESH_TOKEN_MAXAGE"))
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
-	}
-
 	c.Cookie(&fiber.Cookie{
 		Name:     "access_token",
 		Value:    *accessTokenDetails.Token,
 		Path:     "/",
-		MaxAge:   accessTokenMaxAge * 60,
+		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   os.Getenv("DOMAIN_NAME"),
+		Domain:   global.Conf.DomainName,
 	})
 
 	c.Cookie(&fiber.Cookie{
 		Name:     "refresh_token",
 		Value:    *refreshTokenDetails.Token,
 		Path:     "/",
-		MaxAge:   refreshTokenMaxAge * 60,
+		MaxAge:   global.Conf.RefreshTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   os.Getenv("DOMAIN_NAME"),
+		Domain:   global.Conf.DomainName,
 	})
 
 	c.Cookie(&fiber.Cookie{
 		Name:     "logged_in",
 		Value:    "true",
 		Path:     "/",
-		MaxAge:   accessTokenMaxAge * 60,
+		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: false,
-		Domain:   os.Getenv("DOMAIN_NAME"),
+		Domain:   global.Conf.DomainName,
 	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"status": "success", "access_token": accessTokenDetails.Token})
-}
-
-func atoi(s string) {
-	panic("unimplemented")
 }
 
 // Check the auth_login_attempts table for the number of records with the email in the last 15 minutes.
@@ -434,6 +414,7 @@ func CountAttempts(email string) (int64, error) {
 	}
 	return count, nil
 }
+
 func RefreshAccessToken(c *fiber.Ctx) error {
 	db := connect.GetDatabase()
 	refresh_token := c.Cookies("refresh_token")
@@ -443,7 +424,7 @@ func RefreshAccessToken(c *fiber.Ctx) error {
 
 	ctx := context.TODO()
 
-	tokenClaims, err := auth.ValidateToken(refresh_token, os.Getenv("REFRESH_TOKEN_PUBLIC_KEY"))
+	tokenClaims, err := middleware.ValidateToken(refresh_token, global.Conf.RefreshTokenPublicKey)
 	if err != nil {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
@@ -465,19 +446,14 @@ func RefreshAccessToken(c *fiber.Ctx) error {
 		}
 	}
 
-	accessTokenExpiresIn, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_EXPIRED_IN"))
-	if err != nil {
-		return err
-	}
-
-	accessTokenDetails, err := auth.CreateToken(
+	accessTokenDetails, err := middleware.CreateToken(
 		*user.ID,
 		string(*user.Email),
 		string(user.ShortName),
 		string(user.UserStatus),
 		string(user.UserRole),
-		time.Duration(accessTokenExpiresIn)*time.Second,
-		os.Getenv("ACCESS_TOKEN_PRIVATE_KEY"))
+		global.Conf.AccessTokenExpiresIn,
+		global.Conf.AccessTokenPrivateKey)
 	if err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
@@ -489,29 +465,24 @@ func RefreshAccessToken(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"status": "fail", "errors": errAccess.Error()})
 	}
 
-	accessTokenMaxAge, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_MAXAGE"))
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
-	}
-
 	c.Cookie(&fiber.Cookie{
 		Name:     "access_token",
 		Value:    *accessTokenDetails.Token,
 		Path:     "/",
-		MaxAge:   accessTokenMaxAge * 60,
+		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   os.Getenv("DOMAIN_NAME"),
+		Domain:   global.Conf.DomainName,
 	})
 
 	c.Cookie(&fiber.Cookie{
 		Name:     "logged_in",
 		Value:    "true",
 		Path:     "/",
-		MaxAge:   accessTokenMaxAge * 60,
+		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: false,
-		Domain:   os.Getenv("DOMAIN_NAME"),
+		Domain:   global.Conf.DomainName,
 	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"status": "success", "access_token": accessTokenDetails.Token})
@@ -525,7 +496,7 @@ func Logout(c *fiber.Ctx) error {
 
 	ctx := context.TODO()
 
-	tokenClaims, err := auth.ValidateToken(refresh_token, os.Getenv("REFRESH_TOKEN_PUBLIC_KEY"))
+	tokenClaims, err := middleware.ValidateToken(refresh_token, global.Conf.RefreshTokenPublicKey)
 	if err != nil {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
@@ -561,8 +532,4 @@ func randomString(len int) string {
 		return uuid.NewString()
 	}
 	return uuid.NewString()[:len]
-}
-
-func randomNumber(len int) int {
-	return rand.Intn(len)
 }

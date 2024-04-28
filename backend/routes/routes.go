@@ -2,7 +2,8 @@ package routes
 
 import (
 	"backend/connect"
-	"backend/handlers"
+	"backend/controllers"
+	"backend/middleware"
 	"context"
 	"fmt"
 
@@ -11,31 +12,18 @@ import (
 )
 
 func Setup(micro *fiber.App) {
-	// app.Post("/api/login", handlers.Login)
-	micro.Post("/api/register", handlers.Register)
 
-	// micro.Route("/auth", func(router fiber.Router) {
-	// 	router.Post("/preregister", controllers.PreRegister)
-	// 	router.Post("/preregistervalidator", controllers.PreRegisterValidator)
-	// 	router.Post("/register", controllers.Register)
-	// 	router.Post("/login", controllers.Login)
-	// 	router.Get("/logout", middleware.Auth, controllers.Logout)
-	// 	router.Get("/refresh", controllers.RefreshAccessToken)
-	// })
+	micro.Route("/auth", func(router fiber.Router) {
+		router.Post("/preregister", controllers.PreRegister)
+		router.Post("/preregistervalidator", controllers.PreRegisterValidator)
+		router.Post("/register", controllers.Register)
+		router.Post("/login", controllers.Login)
+		router.Get("/logout", middleware.Auth, controllers.Logout)
+		router.Get("/refresh", controllers.RefreshAccessToken)
+	})
 
-	// micro.Get("/users/me", middleware.Auth, controllers.GetMe)
-	// micro.Patch("/users/updateme", middleware.Auth, controllers.UpdateMe)
-
-	// // https://my-domain.com/api/v1/resources/crypto
-	// micro.Get("resources/crypto", func(c *fiber.Ctx) error {
-	// 	// Serve the file using SendFile function
-	// 	err := filesystem.SendFile(c, http.Dir("./resources/crypto"), "crypto.json")
-	// 	if err != nil {
-	// 		// Handle the error, e.g., return a 404 Not Found response
-	// 		return c.Status(fiber.StatusNotFound).SendString("File not found")
-	// 	}
-	// 	return nil
-	// })
+	micro.Get("/users/me", middleware.Auth, controllers.GetMe)
+	micro.Patch("/users/updateme", middleware.Auth, controllers.UpdateMe)
 
 	ctx := context.TODO()
 	value, err := connect.RedisClient.Get(ctx, "test").Result()

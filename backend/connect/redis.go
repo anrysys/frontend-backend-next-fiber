@@ -3,7 +3,8 @@ package connect
 import (
 	"context"
 	"fmt"
-	"os"
+
+	"backend/global"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -17,7 +18,10 @@ func ConnectRedis() {
 	ctx = context.TODO()
 
 	RedisClient = redis.NewClient(&redis.Options{
-		Addr: os.Getenv("REDIS_URL"),
+		Addr:     global.Conf.RedisUri,
+		Password: "", // no password set
+		DB:       0,  // use default DB
+		//DisableIndentity: true, // Disable set-info on connect
 	})
 
 	if _, err := RedisClient.Ping(ctx).Result(); err != nil {

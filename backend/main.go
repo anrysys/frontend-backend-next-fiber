@@ -1,11 +1,12 @@
 package main
 
 import (
-	connect "backend/connect"
+	"backend/connect"
+	"backend/global"
 	"backend/handlers"
+	"backend/routes"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -17,17 +18,13 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/joho/godotenv"
 	"golang.org/x/text/language"
 )
 
-func init() {
+//var Conf *configs.Config
 
-	// Загрузка переменных окружения из файла .env
-	err := godotenv.Load("../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+func init() {
+	global.LoadConfig("../")
 }
 
 func main() {
@@ -43,7 +40,7 @@ func main() {
 	app.Use(recover.New())
 	micro.Use(recover.New())
 
-	app.Mount(fmt.Sprintf("/api/%s", os.Getenv("")), micro)
+	app.Mount(fmt.Sprintf("/api/%s", global.Conf.ApiVersion), micro)
 
 	app.Use(
 		logger.New(logger.Config{
@@ -56,7 +53,7 @@ func main() {
 			Max:        3,
 		}),
 		cors.New(cors.Config{
-			AllowOrigins:     os.Getenv("CLIENT_ORIGIN"),
+			AllowOrigins:     global.Conf.ClientOrigin,
 			AllowHeaders:     "Origin, Content-Type, Accept",
 			AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
 			AllowCredentials: true,
@@ -73,7 +70,6 @@ func main() {
 
 	micro.Use(
 		logger.New(logger.Config{
-			// For more options, see the Config section
 			Format: "${status} - ${method} ${path}\n",
 		}),
 		// 3 requests per 10 seconds max
@@ -82,7 +78,7 @@ func main() {
 			Max:        3,
 		}),
 		cors.New(cors.Config{
-			AllowOrigins:     os.Getenv("CLIENT_ORIGIN"),
+			AllowOrigins:     global.Conf.ClientOrigin,
 			AllowHeaders:     "Origin, Content-Type, Accept",
 			AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
 			AllowCredentials: true,
@@ -100,9 +96,14 @@ func main() {
 	// Подключаемся к базе данных
 	connect.GetDatabase()
 
-	// Инициализируем маршруты
-	// routes.Setup(micro)
+	// Подключаемся к Redis
+	connect.ConnectRedis()
 
-	log.Fatal(app.Listen(os.Getenv("SERVER_PORT")))
+	// Инициализируем маршруты
+	routes.Setup(micro)
+
+	// Запускаем сервер
+	port := fmt.Sprintf(":%s", global.Conf.ServerPort)
+	log.Fatal(app.Listen(port))
 
 }

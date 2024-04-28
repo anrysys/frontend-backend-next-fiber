@@ -47,7 +47,44 @@ lang.merge:
 
 lang.del:
 	find ./backend/ -type f \( -iname translate.\* -o -iname active.\* \) -delete -print
-	
+
+# start.backend:
+# 	cd ./backend/ ; go run main.go && cd ./frontend ; npm run dev ;
+
+# start.frontend:
+# 	cd ./backend/ ; go run main.go && cd ./frontend ; npm run dev ;
+
+# stop:
+# 	pkill -f "next-server" ; pkill -f "go run main.go"
+
+# start:
+# 	cd ./backend/ ; go run main.go; 
+# 	cd ../frontend ; npm run dev;
+
+
+# start:
+# 	cd ./backend/ ; go run main.go & echo $$! > backend.pid ; 
+# 	cd ../frontend ; npm run dev & echo $$! > frontend.pid ;
+
+# stop:
+# 	if [ -f ./backend.pid ]; then \
+# 		kill `cat ./backend.pid` && rm ./backend.pid; \
+# 	fi
+# 	pkill -f "next-server"
+# 	if [ -f ./frontend.pid ]; then \
+# 		kill `cat ./frontend.pid` && rm ./frontend.pid; \
+# 	fi
+
+
+# frontend.build:
+# 	cd ./frontend ; npm run build
+
+# frontend.build.start:
+# 	cd ./frontend ; npm run build ; npm run start
+
+# frontend.build.start.prod:
+# 	cd ./frontend ; npm run build ; npm run start:prod
+
 # make docker.build.start ver=1.005
 docker.build.start:
 	go mod tidy ; docker login ; docker build --no-cache -t api-main:$(ver) -f Dockerfile.production . ; docker tag api-main:$(ver) anrysys/api-main:$(ver) ; docker push anrysys/api-main:$(ver)
