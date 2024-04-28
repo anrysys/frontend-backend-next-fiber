@@ -37,9 +37,23 @@ Remove-Item Env:POSTGRES_SSL_MODE
 
 Note that these commands remove environment variables for the current session only. If you want to remove environment variables permanently, you will need to change your system settings.
 
-- Go to the root directory and run the command: ``docker compose up -d``
-- Go to the root directory and run the command: ``make migrate.up``
+## Required Tools
+
+- Locale go-i18n: [https://github.com/nicksnyder/go-i18n](https://github.com/nicksnyder/go-i18n)
+- Migrate: [https://github.com/golang-migrate/migrate](https://github.com/golang-migrate/migrate)
+
+
+### Start
+
+- Clone the repository: ``git clone https://github.com/anrysys/frontend-and-backend-nextjs-and-golang-fiber.git``
+- Go to the **/frontend-and-backend-nextjs-and-golang-fiber** - root directory.
+- In the root directory run the following commands: ``docker compose up -d`` and then run migrations to create the required tables in the database: ``make migrate.up``
+- Go to the **/backend** directory and run the command: ``air``
 - Go to the **/frontend** directory and run the command: ``npm install --save next``
+- Go to the **/frontend** directory and run the command: ``npm run dev``
+
+If you want to work with the API through Postman, then import the API_Your_project.postman_collection.json file, which is located in the root. This file contains all the key endpoints.
+
 
 ---
 
@@ -50,11 +64,6 @@ ACCESS_TOKEN_PUBLIC_KEY=LS0tLS...S0tLQ==
 !!! Be sure to change this in the file .env (change to your certificate - https://it-tools.tech/rsa-key-pair-generator):
 REFRESH_TOKEN_PRIVATE_KEY=LS0tLS1CRUdJTiBSU0EgU...VZLS0tLS0=
 REFRESH_TOKEN_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSU.....LS0tLQ==
-
-## Required Tools
-
-- Locale go-i18n: [https://github.com/nicksnyder/go-i18n](https://github.com/nicksnyder/go-i18n)
-- Migrate: [https://github.com/golang-migrate/migrate](https://github.com/golang-migrate/migrate)
 
 ---
 
