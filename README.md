@@ -60,10 +60,12 @@ If you want to work with the API through Postman, then import the API_Your_proje
 
 !!! Be sure to change this in the file **.env** (change to your certificate - <https://it-tools.tech/rsa-key-pair-generator>):
 
-``ACCESS_TOKEN_PRIVATE_KEY=LS0tL...f0tLS0=
+```cmd
+ACCESS_TOKEN_PRIVATE_KEY=LS0tL...f0tLS0=
 ACCESS_TOKEN_PUBLIC_KEY=LS0tLS...S0tLQ==
 REFRESH_TOKEN_PRIVATE_KEY=LS0tLS1CRUdJTiBSU0EgU...VZLS0tLS0=
-REFRESH_TOKEN_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSU.....LS0tLQ==``
+REFRESH_TOKEN_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSU.....LS0tLQ==
+```
 
 ---
 
