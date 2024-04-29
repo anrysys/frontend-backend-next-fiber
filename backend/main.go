@@ -24,7 +24,7 @@ import (
 //var Conf *configs.Config
 
 func init() {
-	global.LoadConfig("../")
+	global.LoadConfig(".")
 }
 
 func main() {

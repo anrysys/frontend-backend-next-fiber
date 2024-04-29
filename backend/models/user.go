@@ -19,7 +19,6 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
-	//uuid "github.com/satori/go.uuid"
 )
 
 type UserStatuses string
@@ -87,15 +86,15 @@ type UpdateMe struct {
 
 // Registration for administartors (ERM/CRM)
 type Register struct {
-	FirstName       string `json:"first_name" validate:"required"`
-	LastName        string `json:"last_name" validate:"required"`
-	PhoneCode       string `json:"phone_code" validate:"required,numeric"`
-	PhoneNumber     string `json:"phone_number" validate:"required,numeric"`
 	Email           string `json:"email" validate:"required,email"`
 	Password        string `json:"password" validate:"required,min=8"`
-	PasswordConfirm string `json:"passwordConfirm" validate:"required,min=8"`
-	Photo           string `json:"photo,omitempty"`
+	PasswordConfirm string `json:"password_confirm" validate:"required,min=8"`
 	Lang            string `json:"lang" validate:"required"`
+	FirstName       string `json:"first_name,omitempty"`
+	LastName        string `json:"last_name,omitempty"`
+	PhoneCode       string `json:"phone_code,omitempty"`
+	PhoneNumber     string `json:"phone_number,omitempty"`
+	Photo           string `json:"photo,omitempty"`
 }
 
 type Login struct {

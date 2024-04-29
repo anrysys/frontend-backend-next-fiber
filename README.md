@@ -8,10 +8,9 @@
 
 ---
 
-## Do it
+## Do it (for LOCAL deployment)
 
-- Change or copy the **.env.example** file to **.env**.
-- Change all values ​​in the **.env** file that start with **"your"** to your values.
+- Go to the **/backend** directory and change or copy the **.env.example** file to **.env**. Change all values ​​in the **.env** file that start with **"your"** to your values.
 - In order to avoid errors when starting the application, you need to clear the environment variables.
  Run command (for Linux/MacOS):
 
@@ -50,6 +49,8 @@ Note that these commands remove environment variables for the current session on
 - Clone the repository: ``git clone https://github.com/anrysys/frontend-and-backend-nextjs-and-golang-fiber.git``
 - Go to the **/frontend-and-backend-nextjs-and-golang-fiber** - root directory.
 - In the root directory run the following commands: ``docker compose up -d`` and then run migrations to create the required tables in the database: ``make migrate.up``
+- Go to the **/backend** directory and run the command: ``go mod init``
+- Go to the **/backend** directory and run the command: ``go mod tidy``
 - Go to the **/backend** directory and run the command: ``air``
 - Go to the **/frontend** directory and run the command: ``npm install --save next``
 - Go to the **/frontend** directory and run the command: ``npm run dev``
@@ -58,7 +59,7 @@ If you want to work with the API through Postman, then import the API_Your_proje
 
 ---
 
-!!! Be sure to change this in the file **.env** (change to your certificate - <https://it-tools.tech/rsa-key-pair-generator>):
+!!! Be sure to change this in the file **/backend/.env** (change to your certificate - <https://it-tools.tech/rsa-key-pair-generator>):
 
 ```cmd
 ACCESS_TOKEN_PRIVATE_KEY=LS0tL...f0tLS0=
@@ -71,6 +72,8 @@ REFRESH_TOKEN_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSU.....LS0tLQ==
 
 ### Coming soon
 
-All commands can be executed via Makefile:
+- Do it (for REMOTE deployment)
+
+- All commands can be executed via Makefile:
 
 make command.action -arg(-s)...

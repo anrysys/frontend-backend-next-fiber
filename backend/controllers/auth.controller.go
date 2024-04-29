@@ -66,13 +66,13 @@ func PreRegister(c *fiber.Ctx) error {
 	if user.UserStatus != models.UserStatusActive {
 		switch user.UserStatus {
 		case models.UserStatusBlocked:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
 		case models.UserStatusDeleted:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
 		//case models.UserStatusPending:
-		//return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
+		//return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
 		case models.UserStatusRejected:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
 		}
 	}
 
@@ -83,7 +83,7 @@ func PreRegister(c *fiber.Ctx) error {
 	// Check code verification (3 attempt in the last 15 minutes)
 	count, err := CountAttempts(email)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
 	if count >= 3 {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("ErrorAttemptExceeded", c)})
@@ -218,20 +218,20 @@ func PreRegisterValidator(c *fiber.Ctx) error {
 	if user.UserStatus != models.UserStatusActive {
 		switch user.UserStatus {
 		case models.UserStatusBlocked:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
 		case models.UserStatusDeleted:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
 		//case models.UserStatusPending:
-		//	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
+		//	return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
 		case models.UserStatusRejected:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
 		}
 	}
 
 	// Delete all previos attempts for user
 	err = db.Where("email = ?", email).Delete(&models.AuthLoginAttempt{}).Error
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 	}
 	// Create token
 	return CreateTokenForUser(c, user)
@@ -306,25 +306,25 @@ func Login(c *fiber.Ctx) error {
 		if err == gorm.ErrRecordNotFound {
 			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": message})
 		} else {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": err.Error()})
 		}
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password))
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": message})
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": message})
 	}
 	// TODO Добавить {%s} в .env будет удален через {%s} месяц
 	if user.UserStatus != models.UserStatusActive {
 		switch user.UserStatus {
 		case models.UserStatusBlocked:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsBlocked", c)})
 		case models.UserStatusDeleted:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsDeleted", c)})
 		case models.UserStatusPending:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsPending", c)})
 		case models.UserStatusRejected:
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
+			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "errors": handlers.L("AccountIsRejected", c)})
 		}
 	}
 
@@ -377,7 +377,7 @@ func CreateTokenForUser(c *fiber.Ctx, user models.User) error {
 		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   global.Conf.DomainName,
+		Domain:   global.Conf.Host,
 	})
 
 	c.Cookie(&fiber.Cookie{
@@ -387,7 +387,7 @@ func CreateTokenForUser(c *fiber.Ctx, user models.User) error {
 		MaxAge:   global.Conf.RefreshTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   global.Conf.DomainName,
+		Domain:   global.Conf.Host,
 	})
 
 	c.Cookie(&fiber.Cookie{
@@ -397,7 +397,7 @@ func CreateTokenForUser(c *fiber.Ctx, user models.User) error {
 		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: false,
-		Domain:   global.Conf.DomainName,
+		Domain:   global.Conf.Host,
 	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"status": "success", "access_token": accessTokenDetails.Token})
@@ -472,7 +472,7 @@ func RefreshAccessToken(c *fiber.Ctx) error {
 		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: true,
-		Domain:   global.Conf.DomainName,
+		Domain:   global.Conf.Host,
 	})
 
 	c.Cookie(&fiber.Cookie{
@@ -482,7 +482,7 @@ func RefreshAccessToken(c *fiber.Ctx) error {
 		MaxAge:   global.Conf.AccessTokenMaxAge * 60,
 		Secure:   false,
 		HTTPOnly: false,
-		Domain:   global.Conf.DomainName,
+		Domain:   global.Conf.Host,
 	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"status": "success", "access_token": accessTokenDetails.Token})

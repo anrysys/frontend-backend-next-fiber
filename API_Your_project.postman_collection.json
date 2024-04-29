@@ -25,7 +25,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"Anry\",\r\n    \"last_name\": \"Akishyn\",\r\n    \"phone_code\": \"38068\",\r\n    \"phone_number\": \"1468300\",\r\n    \"email\": \"anry@your-domain.com\",\r\n    \"password\": \"12345678\",\r\n    \"passwordConfirm\": \"12345678\",\r\n    \"lang\": \"ru\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"Anry\",\r\n    \"last_name\": \"Akishyn\",\r\n    \"phone_code\": \"38068\",\r\n    \"phone_number\": \"1468300\",\r\n    \"email\": \"anry@your-domain.com\",\r\n    \"password\": \"12345678\",\r\n    \"password_confirm\": \"12345678\",\r\n    \"lang\": \"ru\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

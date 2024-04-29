@@ -14,7 +14,6 @@ type Config struct {
 	Port           string `mapstructure:"PORT"`
 	ClientOrigin   string `mapstructure:"CLIENT_ORIGIN"`
 	ApiVersion     string `mapstructure:"API_VERSION"`
-	DomainName     string `mapstructure:"DOMAIN_NAME"`
 	DBHost         string `mapstructure:"POSTGRES_HOST"`
 	DBUserName     string `mapstructure:"POSTGRES_USER"`
 	DBUserPassword string `mapstructure:"POSTGRES_PASSWORD"`
