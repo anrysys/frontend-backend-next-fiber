@@ -6,12 +6,10 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen justify-between">
       <Header />
-      <main>
-        <Component {...pageProps} />
-      </main>
-        <Footer />
+      <Component {...pageProps} />
+      <Footer />
     </div>
   );
 }

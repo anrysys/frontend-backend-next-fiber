@@ -43,45 +43,42 @@ const Login: React.FC<{ data: any, error: any }> = ({ data, error }) => {
         setLoading(false);
     };
 
+
     return (
-        <div className="flex flex-col justify-center items-center min-h-screen">
-            <h1 className="text-2xl font-bold mb-4">Login</h1>
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-
-
-
-
-
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md">
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                    required
-                    className="border border-gray-300 p-2"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                    minLength={8}
-                    className="border border-gray-300 p-2"
-                />
-                <input
-                    type="hidden"
-                    value={lang}
-                    onChange={(e) => setLang(e.target.value)}
-                    required
-                />
-                <button type="submit" className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3" disabled={loading}>
-                    {loading ? 'Loading...' : 'Login'}
-                </button>
-            </form>
-        </div>
+        <main>
+            <div className="flex flex-col justify-center items-center">
+                <h1 className="text-2xl font-bold mb-4">Login</h1>
+                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md">
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                        required
+                        className="border border-gray-300 p-2"
+                    />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                        minLength={8}
+                        className="border border-gray-300 p-2"
+                    />
+                    <input
+                        type="hidden"
+                        value={lang}
+                        onChange={(e) => setLang(e.target.value)}
+                        required
+                    />
+                    <button type="submit" className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3" disabled={loading}>
+                        {loading ? 'Loading...' : 'Login'}
+                    </button>
+                </form>
+            </div>
+        </main>
     );
 };
 
