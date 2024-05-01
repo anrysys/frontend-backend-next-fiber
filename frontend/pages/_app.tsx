@@ -4,14 +4,15 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import '../styles/globals.css';
 
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div>
       <Header />
-      <Component {...pageProps} />
-      <Footer />
-    </>
+      <main>
+        <Component {...pageProps} />
+      </main>
+        <Footer />
+    </div>
   );
 }
 
