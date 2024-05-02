@@ -1,4 +1,5 @@
 // frontend/pages/_app.tsx
+
 import type { AppProps } from 'next/app';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';

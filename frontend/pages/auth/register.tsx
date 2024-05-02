@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from "react";
 
-const Register: React.FC<{ data: any, error: any }> = ({ data, error }) => {
+const Register: React.FC<{ data: JSON, error: JSON }> = () => {
     const [email, setEmail] = useState<string>('anry@your-domain.com'); // anry@your-domain.com
     const [password, setPassword] = useState<string>('12345678'); // 12345678
     const [password_confirm, setPasswordConfirm] = useState<string>('12345678');
@@ -9,8 +9,6 @@ const Register: React.FC<{ data: any, error: any }> = ({ data, error }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
     const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
-
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
