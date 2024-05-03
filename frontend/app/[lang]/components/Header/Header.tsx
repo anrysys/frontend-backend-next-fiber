@@ -1,7 +1,8 @@
-// frontend/components/Header.tsx
+// frontend/app/[lang]/components/Header/Header.tsx
 import Link from 'next/link';
 
 const Header: React.FC = () => {
+
   return (
 
     <header className="flex flex-col justify-between lg:block">
@@ -11,7 +12,7 @@ const Header: React.FC = () => {
             <svg width="95" height="94" viewBox="0 0 95 94" className="h-auto w-6 text-orange-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M96 0V47L48 94H0V47L48 0H96Z" />
             </svg>
-            My App
+            My App 
           </Link>
           <nav className="hidden gap-12 lg:flex">
             <Link href="#" className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-orange-500 active:text-orange-700">Home</Link>

@@ -1,5 +1,6 @@
-// frontend/components/Footer.tsx
+// frontend/app/[lang]/components/Footer/Footer.tsx
 import Link from 'next/link';
+import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
 
 const Footer: React.FC = () => {
   return (
@@ -92,6 +93,9 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <Link href="#" className="text-gray-400 transition duration-100 hover:text-orange-500 active:text-orange-600">FAQ</Link>
+                </div>
+                <div className=''>
+                  <LocaleSwitcher />
                 </div>
               </nav>
             </div>

@@ -1,3 +1,4 @@
+// frontend/pages/[lang]/index.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -55,7 +56,14 @@ const Home: React.FC = () => {
                     </div>
                     <div className="w-1/3 overflow-hidden rounded-lg border">
                         <div className="h-48 bg-gray-100">
-                            <Image src="/images/present/electric-scooter.png" loading="lazy" alt="Photo by Fakurian Design" className="h-full w-full object-cover object-center" width={320} height={213} />
+                            <Image
+                                src="/images/present/electric-scooter.png"
+                                width={500}
+                                height={500}
+                                loading="lazy"
+                                alt="Photo by Anrysys@Design"
+                                className="h-full w-full object-cover object-center"
+                            />
                         </div>
                         <div className="flex items-center justify-between gap-2 bg-white p-3">
                             <p className="text-sm text-gray-500">This is some simple filler text.</p>

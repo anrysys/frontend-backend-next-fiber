@@ -99,8 +99,12 @@ dev:
 dev-down:
 	docker-compose down
 
-# start-server:
-# 	air
+start-server:
+	air
+
+# Forntend: eslint --fix (in current directory)
+ff:
+	cd ./frontend/ ; ./node_modules/.bin/eslint --fix . ; cd ../
 
 # install-modules:
 # 	go get github.com/go-playground/validator/v10
