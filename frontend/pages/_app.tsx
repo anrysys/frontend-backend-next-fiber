@@ -1,8 +1,8 @@
 // frontend/pages/_app.tsx
 
 import type { AppProps } from 'next/app';
-import Footer from '../app/[locale]/components/Footer/Footer';
-import Header from '../app/[locale]/components/Header/Header';
+import Footer from '../app/components/Footer/Footer';
+import Header from '../app/components/Header/Header';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
