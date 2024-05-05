@@ -2,21 +2,31 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3000",
     "devd": "dotenv -e ../.env -- next dev -p $CLIENT_PORT",
     "build": "next build",
     "start": "next start",
     "stop": "kill $(cat ./frontend.pid) && rm ./frontend.pid",
-    "lint": "next lint"
+    "lint": "next lint",
+    "i18next-resources-for-ts": "i18next-resources-for-ts interface -i ./app/i18n/locales/en -o ./@types/resources.d.ts"
   },
   "dependencies": {
+    "accept-language": "^3.0.18",
     "axios": "^1.6.8",
     "dotenv-cli": "^7.4.1",
+    "i18next": "^23.11.3",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "i18next-resources-for-ts": "^1.5.0",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "^14.2.3",
     "punycode": "^2.3.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-cookie": "^7.1.4",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.1.1",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.12.8",
@@ -24,9 +34,10 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
-    "eslint": "^9.2.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "eslint-plugin-react": "^7.34.1",
+    "locize-cli": "^8.0.1",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
