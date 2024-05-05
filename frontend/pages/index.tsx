@@ -1,4 +1,4 @@
-// frontend/pages/[lang]/index.tsx
+// frontend/pages/index.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 

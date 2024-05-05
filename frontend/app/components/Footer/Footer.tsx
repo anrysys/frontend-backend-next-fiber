@@ -1,4 +1,4 @@
-// frontend/app/[lang]/components/Footer/Footer.tsx
+// frontend/app/[locale]/components/Footer/Footer.tsx
 import Link from 'next/link';
 
 const Footer: React.FC = () => {

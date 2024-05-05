@@ -1,4 +1,4 @@
-// frontend/app/[lang]/components/Header/Header.tsx
+// frontend/app/[locale]/components/Header/Header.tsx
 import Link from 'next/link';
 
 const Header: React.FC = () => {
