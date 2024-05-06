@@ -1,6 +1,6 @@
 {
   "back-to-home": "Вернуться домой",
-  "counter_many": "",
+  "counter_many": "counter_many",
   "counter_one": "один выбран",
   "counter_other": "{{count}} выбрано",
   "counter_zero": "не выбрано, ничего не выбрано",
