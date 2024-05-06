@@ -1,12 +1,13 @@
 import Link from 'next/link'
 
-export default function Page({ params: { lng } }: { params: { lng: any } }) {
+export default function Page({ params: { lng } }: { params: { lng: string } }) {
   return (
     <>
       <h1>Hi there!</h1>
-      <Link href={`/${lng}/second-page`}>
-        second page
+      <Link href={`/${lng}/client-page`}>
+        client-page
       </Link>
+      
     </>
   )
 }
