@@ -4,7 +4,9 @@
   "to-client-page": "На сторінку клієнта",
   "to-second-page": "На другу сторінку",
   "welcome": "Ласкаво просимо до Next.js 13/14 <1>з новими функціями каталогу програм</1> і i18next",
-  "blog.text": "sssssss Перегляньте відповідний <1>допис у блозі</1> з описом цього прикладу.",
-  "blog.link": "https://locize.com/blog/next-app-dir-i18n/",
-  "blog.title": "Блог locize"
+  "blog": {
+    "title": "Назва блогу",
+    "text": "Перегляньте відповідний <1>допис у блозі</1> з описом цього прикладу.",
+    "link": "https://locize.com/blog/next-app-dir-i18n/"
+  }
 }

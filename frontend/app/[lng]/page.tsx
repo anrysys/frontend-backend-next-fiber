@@ -19,7 +19,7 @@ export default async function Page({ params: { lng } }: {
         <Header heading={t('h1')} />
         <h2>
           <Trans t={t} i18nKey="welcome">
-            Welcome to Next.js v13 <small>appDir</small> and i18next 
+            Welcome to Next.js v13 <small>appDir</small> and i18next
           </Trans>
         </h2>
         <div style={{ width: '100%' }}>
@@ -46,7 +46,7 @@ export default async function Page({ params: { lng } }: {
           </Link>
         </div>
       </main>
-      <Footer lng={lng}/>
+      <Footer lng={lng} />
     </>
   )
 }

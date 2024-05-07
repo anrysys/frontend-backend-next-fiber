@@ -30,6 +30,7 @@ interface Resources {
     "to-second-page": "To second page",
     "welcome": "Welcome to Next.js 13 <1>with the new app directory features</1> and i18next",
     "blog": {
+      "title": "Title Blog",
       "text": "Check out the corresponding <1>blog post</1> describing this example.",
       "link": "https://locize.com/blog/next-app-dir-i18n/"
     }
