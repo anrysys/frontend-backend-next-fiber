@@ -12,7 +12,7 @@ export default function Page({ params: { lng } }: {
 }) {
   const { t } = useTranslation(lng, 'second-client-page')
   return (
-    <>
+    <div className="flex flex-col min-h-screen justify-between">
       <Header heading={t('h1')} />
       <main>
         <div className="w-full rounded-lg border bg-gray-50 shadow-sm lg:block">
@@ -31,6 +31,6 @@ export default function Page({ params: { lng } }: {
         </div>
       </main>
       <Footer lng={lng} path="/second-client-page" />
-    </>
+    </div>
   )
 }

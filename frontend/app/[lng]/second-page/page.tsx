@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 export default function Page({ params: { lng } }: {
-  params: { 
-    lng: string 
+  params: {
+    lng: string
   }
 }) {
   return (
