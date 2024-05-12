@@ -1,5 +1,5 @@
-import { languages, fallbackLng } from '../../i18n/settings'
-import { useTranslation } from '../../i18n'
+import { useTranslation } from '../../i18n';
+import { fallbackLng, languages } from '../../i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))

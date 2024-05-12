@@ -100,7 +100,7 @@ export const FooterBase = ({ i18n, lng, path = '' }: { i18n: i18n, lng: string, 
             <div>
               <div className="mb-4 font-bold uppercase tracking-widest text-gray-100">Legal</div>
               <nav className="flex flex-col gap-4">
-                <div>
+                <div className='text-gray-50'>
                   <Trans i18nKey="languageSwitcher" t={t}>
                     {/* @ts-expect-error Trans interpolation */}
                     Switch from <strong>{{ lng }}</strong> to:{' '}

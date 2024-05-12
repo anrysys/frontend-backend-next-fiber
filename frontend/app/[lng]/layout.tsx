@@ -35,11 +35,11 @@ export default function RootLayout({
     lng: string;
   };
 }) {
-  return (
+    return (
     <html lang={lng} dir={dir(lng)}>
       <head />
       <body className={inter.className}>
-        {children}
+          {children}
       </body>
     </html>
   )

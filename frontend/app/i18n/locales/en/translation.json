@@ -8,5 +8,7 @@
     "title": "Title Blog",
     "text": "Check out the corresponding <1>blog post</1> describing this example.",
     "link": "https://locize.com/blog/next-app-dir-i18n/"
-  }
+  },
+  "home": "Home",
+  "counter": "counter"
 }

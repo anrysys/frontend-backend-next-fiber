@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function Page({ params: { lng } }: {
+export default function SecondPage({ params: { lng } }: {
   params: {
     lng: string
   }

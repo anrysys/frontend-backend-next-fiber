@@ -16,7 +16,7 @@ export default async function Page({ params: { lng } }: {
   return (
     <div className="flex flex-col min-h-screen justify-between">
       <Header heading={t('h1')} />
-
+   
       <main className='content'>
         <div className="w-full rounded-lg border bg-gray-50 shadow-sm lg:block">
           <div className="mx-auto flex max-w-screen-lg items-center gap-8 p-8">
