@@ -1,10 +1,12 @@
 interface Resources {
-  "auth-register": {
-    "h1": "Sign Up",
-    "title": "Sign Up",
-    "text": "Already have an account? <1>Sign in</1>",
-    "submit": "Sign Up",
-    "description": "Sign up for an account"    
+  "auth": {
+    "register": {
+      "h1": "Sign Up",
+      "title": "Sign Up",
+      "text": "Already have an account? <1>Sign in</1>",
+      "submit": "Sign Up",
+      "description": "Sign up for an account"
+    }
   },
   "client-page": {
     "back-to-home": "Back to home" | string,

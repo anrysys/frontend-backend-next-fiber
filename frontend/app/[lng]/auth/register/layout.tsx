@@ -12,10 +12,10 @@ export async function generateMetadata({ params: { lng } }: {
 }) {
   if (languages.indexOf(lng) < 0) lng = fallbackLng
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { t } = await useTranslation(lng, 'auth-register')
+  const { t } = await useTranslation(lng, 'auth')
   return {
-    title: t('title')
-  }
+    title: t('register.title'),
+    description: t('register.description'),}
 }
 
 export default function Layout({ children }: {
