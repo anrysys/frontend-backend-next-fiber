@@ -1,12 +1,14 @@
-import { NextResponse, NextRequest } from 'next/server'
 import acceptLanguage from 'accept-language'
-import { fallbackLng, languages, cookieName } from './app/i18n/settings'
+import { NextRequest, NextResponse } from 'next/server'
+import { cookieName, fallbackLng, languages } from './app/i18n/settings'
 
 acceptLanguage.languages(languages)
 
 export const config = {
   // matcher: '/:lng*'
+  // Optionally, don't invoke Middleware on some paths
   matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)']
+  //matcher: ['/((?!_next/static|_next/image|assets|favicon.ico|sw.js).*)']
 }
 
 export function middleware(req: NextRequest) {

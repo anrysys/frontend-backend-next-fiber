@@ -6,16 +6,23 @@ interface Resources {
       "text": "Already have an account? <1>Sign in</1>",
       "submit": "Sign Up",
       "description": "Sign up for an account"
+    },
+    "login": {
+      "h1": "Sign In",
+      "title": "Sign In",
+      "description": "Sign in to your account",
+      "text": "Don't have an account? <1>Sign up</1>",
+      "submit": "Sign In"
     }
   },
   "client-page": {
-    "back-to-home": "Back to home" | string,
-    "counter_one": "one selected" | string,
-    "counter_other": "{{count}} selected (other)" | string,
-    "counter_zero": "none selected (zero)" | string,
-    "h1": "A client page, to demonstrate client side i18n ({{lng}})" | string,
-    "title": "Client page ({{lng}})" | string,
-    "to-second-client-page": "to second client page ({{lng}})" | string
+    "back-to-home": "Back to home",
+    "counter_one": "one selected",
+    "counter_other": "{{count}} selected (other)",
+    "counter_zero": "none selected (zero)",
+    "h1": "A client page, to demonstrate client side i18n ({{lng}})",
+    "title": "Client page ({{lng}})",
+    "to-second-client-page": "to second client page ({{lng}})"
   },
   "footer": {
     "description": "This is a non-page component that requires its own namespace",
