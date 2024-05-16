@@ -1,4 +1,14 @@
 interface Resources {
+  "users": {
+    "me": {
+      "h1": "Profile Name",
+      "title": "Profile",
+      "description": "This is your profile",
+      "name": "Name",
+      "email": "Email",
+      "submit": "Save"
+    }
+  }
   "auth": {
     "register": {
       "h1": "Sign Up",
